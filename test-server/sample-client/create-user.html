@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+<form name="user" method="post" action="/users">
+    <b>Create Users</b><p>
+    <tr><td> id </td><td> <input type="text" name="userid"/> </td></tr>
+    <br>
+	<tr><td> password </td><td> <input type=password id=passwd value="" onkeyup=onKeyupPasswd(event)> </td></tr>
+    <br>
+	first name <input type="text" name="firstname"/>
+    <br>
+    last name <input type="text" name="lastname"/>
+    <br>
+    email address <input type="text" name="address"/>
+    <br>
+    <button type="submit" >Submit</button>
+</form>
+
+<script type="text/javascript">
+    
+        /*****
+        *    로그인 함수 예제
+        *****/
+        function fnLogin(){
+            var objLogin = document.getElementById("loginId");
+            var objPasswd = document.getElementById("passwd");
+            
+            if(objLogin.value == ""){
+                alert("아이디를 입력하세요..!!");
+                objLogin.focus();
+                return ;
+            }
+            else if(objPasswd.value == ""){
+                alert("비밀번호를 입력하세요..!!");
+                objPasswd.focus();
+                return ;
+            }
+            
+            // 서버에서 정상적으로 로그인 되었다는 응답이 왔을 경우
+            document.getElementById("areaLogin").style.display = "none";
+            
+            var objLoginInfo = document.getElementById("loginInfo");
+            objLoginInfo.innerHTML = objLogin.value + "님 로그인 되었습니다..!!";
+            
+            document.getElementById("areaLogout").style.display = "";
+        }    // end function fnLogin()
+        
+        
+        /*****
+        *    로그 아웃 함수 예제
+        *****/
+        function fnLogout(){
+            document.getElementById("loginId").value = "";
+            document.getElementById("passwd").value = "";
+            
+            document.getElementById("areaLogin").style.display = "";
+            document.getElementById("areaLogout").style.display = "none";
+        }    // end function fnLogout()
+        
+        
+        /*****
+        *    패스워드 필드에서 엔터키를 누를 경우
+        *     fnLogin() 함수 실행
+        *****/
+        function onKeyupPasswd(ev){
+            var evKeyup = null;
+            if(ev)                                            // firefox
+                evKeyup = ev;    
+            else                                            // explorer
+                evKeyup = window.event;
+                
+            if(evKeyup.keyCode == 13){                        // enter key code:13
+                document.getElementById("passwd").blur();
+                fnLogin();    
+            }    // end if
+        
+        }    // end function onKeyupPasswd()
+    </script>
+
+</body>
+</html>
+
