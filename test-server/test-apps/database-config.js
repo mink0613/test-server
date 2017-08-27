@@ -1,7 +1,15 @@
+var databaseName = 'tw-database';
+
+exports.getDBName = function() {
+	
+	var name = databaseName;
+	return name;
+};
+
 module.exports = {
 	connectionLimit: 100,
 	host: 'localhost',
 	user: 'root',
 	password: 'kwak123!!',
-	database: 'user_info'
+	database: databaseName
 };

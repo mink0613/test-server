@@ -64,10 +64,10 @@ app.post('/auth/newUser', function(req, res) {
 	var emailAdr = req.body.email;
 	
 	if(uname.length == 0 || pwd.length == 0 || firstName.length == 0 || lastName.length == 0 || emailAdr.length == 0) {
-		alert('Please fill your information correctly.');
+		res.send('Please enter valid user info. <a href="/auth/newUser">New User</a>');
 		return;
 	}
-	alert('Please fill your information correctly.');
+	
 	var database = require('./database-access.js');
 	var data = {
 			userid: uname,
@@ -78,9 +78,10 @@ app.post('/auth/newUser', function(req, res) {
 	};
 	
 	database.addNewUser(data, function(err, result) {
-		console.log('getUserInfo is finished: ', result);
+		console.log('addNewUser is finished: ', result);
 		if(result == true) {
 			res.redirect('/welcome-new');
+		}
 	});
 });
 

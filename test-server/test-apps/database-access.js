@@ -44,7 +44,28 @@ exports.addNewUser = function(req, callback) {
 	database.executeQuery(sqlQuery, function(err, rows) {
 		if(!err) {
 			console.log('The result is: ', rows);
-			return callback(true, null);
+			return callback(null, true);
+		} else {
+			console.log("Error: ", err);
+		}
+	});
+	
+	return callback('addNewUser error!!', null);
+};
+
+exports.createNewProject = function(req, callback) {
+	var pTitle = req.title;
+	var pUserId = req.userid;
+	//var projectId = req.projectid;
+	
+	var sqlQuery = 'INSERT INTO projects (title, userid) VALUES (' + database.mysqlEscape(pTitle) + ', ' + database.mysqlEscape(id) + ')';
+	
+	console.log('createNewProject Query is: ', sqlQuery);
+	
+	database.executeQuery(sqlQuery, function(err, rows) {
+		if(!err) {
+			console.log('The result is: ', rows);
+			return callback(null, true);
 		} else {
 			console.log("Error: ", err);
 		}

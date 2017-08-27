@@ -32,6 +32,10 @@ function execute(query, callback) {
 	});
 }
 
+exports.getDBName = function() {
+	return dbconfig.getDBName();
+};
+
 exports.mysqlEscape = function(param) {
 	return mysql.escape(param);
 };
