@@ -1,4 +1,4 @@
-var databaseName = 'tw-database';
+var databaseName = 'tw_database';
 
 exports.getDBName = function() {
 	

@@ -1,0 +1,57 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<body onload="requestData()">
+<form name="user" method="post">
+    <b>Update User</b><p>
+    ID <input type="text" id="userid" name="userid" readOnly=true/>
+    <br>
+	Password <input type="password" id="password" name="password"/>
+    <br>
+	First Name <input type="text" id="fname" name="fname"/>
+    <br>
+	Last Name <input type="text" id="lname" name="lname"/>
+    <br>
+	Email <input type="text" id="email" name="email"/>
+    <br>
+    <br>
+    <button type="submit" formaction="/auth/updateUser">Update</button>
+    <button type="submit" formaction="/auth/directToLogin">Cancel</button>
+</form>
+<script>
+function requestData() {
+	//alert('requesting...');
+	var xhr = new XMLHttpRequest();
+	xhr.open('GET', "/auth/requestUserInfo", true);
+	xhr.send();
+	 
+	xhr.onreadystatechange = processRequest;
+	 
+	function processRequest(e) {
+		if (xhr.readyState == 4 && xhr.status == 200) {
+			var response = xhr.responseText;
+			
+			//alert(response);
+			
+			var stringArray = response.split(",");
+			//alert(stringArray[0]);
+			//var item = response.getElementByTagName('userId');
+			document.getElementById('userid').value = stringArray[0];
+			
+			//item = response.getElementByTagName('password');
+			document.getElementById('password').value = stringArray[1];
+			
+			//item = response.getElementByTagName('fname');
+			document.getElementById('fname').value = stringArray[2];
+			
+			//item = response.getElementByTagName('lname');
+			document.getElementById('lname').value = stringArray[3];
+			
+			//item = response.getElementByTagName('email');
+			document.getElementById('email').value = stringArray[4];
+	    }
+	}
+}
+</script>
+</body>
+</html>

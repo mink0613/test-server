@@ -1,0 +1,38 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<body onload="requestData()">
+
+<form name="user" method="post">
+    <input list="projects" name="projects">
+    <datalist id="projects">
+    </datalist>
+    <button type="submit" formaction="/projects/selectProject">Select</button>
+    <br>
+    <button type="submit" formaction="/projects/directToCreate">Create new project</button>
+    <br>
+    <button type="submit" formaction="/projects/directToUpdateUserInfo">Update personal info</button>
+    <br>
+    <button type="submit" formaction="/projects/directToLogout">Logout</button>
+</form>
+<script>
+function requestData() {
+	//alert('requesting...');
+	var xhr = new XMLHttpRequest();
+	xhr.open('GET', "/projects/requestProjectList", true);
+	xhr.send();
+	 
+	xhr.onreadystatechange = processRequest;
+	 
+	function processRequest(e) {
+		if (xhr.readyState == 4 && xhr.status == 200) {
+			var response = xhr.responseText;
+			//alert(response);
+			
+			document.getElementById('projects').innerHTML = response;
+	    }
+	}
+}
+</script>
+</body>
+</html>

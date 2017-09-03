@@ -1,0 +1,162 @@
+ 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<style>
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 50%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+/* The Close Button */
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+</style>
+</head>
+<body onload="requestData()">
+ Project Name <input type="text" name="projectName" readOnly=true/>
+    <br>
+    <button type="submit" id="createTask">Create Task List</button>
+    
+    <div id="createTaskPopup" class="modal">
+	  <div class="modal-content">
+	    <span class="close">&times;</span>
+	    <input type="text" id="taskTitle" name="taskTitle"/>
+	    <button type="submit" id="confirmCreateTask">OK</button>
+	  </div>
+	</div>
+    <ul name="taskList" id="taskList">
+    </ul>
+<script>
+var btnCreateTask = document.getElementById("createTask");
+var btnConfirmCreateTask = document.getElementById("confirmCreateTask");
+var modalCreateTask = document.getElementById("createTaskPopup");
+var span = document.getElementsByClassName("close")[0];
+
+btnCreateTask.onclick = function() {
+	modalCreateTask.style.display = "block";
+}
+
+btnConfirmCreateTask.onclick = function() {
+	var taskTitle = document.getElementById("taskTitle");
+	//alert(taskTitle.value);
+	requestData();
+	modalCreateTask.style.display = "none";
+}
+
+span.onclick = function() {
+	modalCreateTask.style.display = "none";
+}
+
+window.onclick = function(event) {
+    if (event.target == modalCreateTask) {
+    	modalCreateTask.style.display = "none";
+    }
+}
+
+function requestData() {
+	//alert('requesting...');
+	var taskTitle = document.getElementById("taskTitle");
+	
+	var xhr = new XMLHttpRequest();
+	
+	//alert(taskTitle.value);
+	if(taskTitle.value) {
+		xhr.open('POST', "/projects/requestTaskList", true);
+		//alert(taskTitle.value);
+		xhr.send(taskTitle.value);
+	} else {
+		xhr.open('GET', "/projects/requestTaskList", true);
+		xhr.send();
+	}
+	 
+	xhr.onreadystatechange = processRequest;
+	 
+	function processRequest(e) {
+		//alert(xhr.responseText);
+		if (xhr.readyState == 4 && xhr.status == 200) {
+			//alert(xhr.responseText);
+			var response = xhr.responseText;
+			
+			var innerHtml = "";
+			var taskListHeader = "<li> Task List: ";
+			var taskListEndHeader = "</li>";
+			var taskTableHeader = "<table>";
+			var taskTableEndHeader = "</table>";
+			var taskHeader = "<tr><td>Task ID</td><td>Title</td><td>To-Do</td></tr>";
+			
+			if(response) {
+				
+				//alert(response);
+				var taskLists = response.split(";");
+				for(var index = 0; index < taskLists.length; index++) {
+					var item = taskLists[index];
+					//alert('; split: ' + taskLists);
+					var stringArray = item.split(":");
+					var taskListId = stringArray[0];
+					
+					if(taskListId) {
+						//alert('taskListId: ' + taskListId);
+						innerHtml += taskListHeader+ taskListId + taskTableHeader + taskHeader
+						
+						var subStringArray = stringArray[1].split("/");
+						//alert('/ split: ' + subStringArray);
+						
+						for(var index2 = 0; index2 < subStringArray.length; index2++) {
+							var subItem = subStringArray[index2];
+							var subSubStringArray = subItem.split(",");
+							
+							if(subSubStringArray[0]) {
+								var taskId = subSubStringArray[0];
+								var title = subSubStringArray[1];
+								var todo = subSubStringArray[2];
+								//alert('taskId: ' + taskId);
+								
+								var taskInfo = "<tr><td>" + taskId + "</td><td>" + title + "</td><td>" + todo + "</td></tr>";
+								innerHtml += taskInfo;
+							}
+						}
+						
+						innerHtml += taskTableEndHeader + taskListEndHeader + "<br>";
+						//alert(innerHtml);
+					}
+				}
+			} 
+			
+			document.getElementById('taskList').innerHTML = innerHtml;
+	    }
+	}
+}
+</script>
+</body>
+</html>

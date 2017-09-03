@@ -2,14 +2,14 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <form name="user" method="post">
-    <b>Create Users</b><p>
+    <b>Login</b><p>
     id <input type="text" name="userid"/>
     <br>
 	password <input type="password" name="password"/>
     <br>
     <br>
-    <button>Log in</button>
+    <button type="submit">Log in</button>
     <br>
-	<button>Not an user?</button>
+	<button type="submit" formaction="/auth/directToNewUser">Not an user?</button>
 </form>
 </html>
