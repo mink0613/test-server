@@ -15,47 +15,47 @@
 
 # AVAILABLE FUNCTIONS
 1. Create a user (sign-up).
-* url: localhost:3030:/createUser
+* url: localhost:3000:/createUser
 * body: { “userId”: “*yourId*”, “password”: “*yourPassword*”, “fname”: “*firstName*”, “lname”: “*lastName*”, “email”: “*youremail@email.com*” }
 
 2. Login (sign-in).
-* url: localhost:3030/login
+* url: localhost:3000/login
 * body: { “userId”: “*yourId*”, “password”: “*yourPassword*” }
 
 3. Logout (sign-out) (requires session).
-* url: localhost:3030/logout
+* url: localhost:3000/logout
 * body: { “userId”: “*yourId*”, “password”: “*yourPassword*” }
 
 4. Update a user’s email or name (requires session).
-* url: localhost:3030/updateUser
+* url: localhost:3000/updateUser
 * body: { “userId”: “*yourId*”, “password”: “*yourPassword*”, “fname”: “*firstName*”, “lname”: “*lastName*”, “email”: “*youremail@email.com*” }
 
 5. Retrieve project list (requires session).
-* url: localhost:3030/projects/list
+* url: localhost:3000/projects/list
 * body: {  }
 
 6. Create a project (requires session).
-* url: localhost:3030/projects/create
+* url: localhost:3000/projects/create
 * body: { “title”: “*projectTitle*” }
 
 7. Retrieve a project (requires session).
-* url: localhost:3030/projects/project
+* url: localhost:3000/projects/project
 * body: { “projectId”: “*targetProjectId*” }
 
 8. Create a task list (requires session).
-* url: localhost:3030/projects/project/createTaskList
+* url: localhost:3000/projects/project/createTaskList
 * body: { “title”: “*taskTitle*”, “todo”: “*taskToDo*”, “taskListId”: “*targetTaskListId*” }
 
 9. Create a task (requires session).
-* url: localhost:3030/projects/project/taskList/createTask
+* url: localhost:3000/projects/project/taskList/createTask
 * body: { “title”: “*taskListTitle*”, “projectId”: “*targetProjectId*” }
 
 10. Move Task within a List or between Lists (require session).
-* url: localhost:3030/projects/project/taskList/switchTaskWithinList
+* url: localhost:3000/projects/project/taskList/switchTaskWithinList
 * body: { “taskListId”: “*targetTaskListId*”, “taskId”: “*targetTaskId*”, “switchOrder”: “*targetSwitchOrder*” }
 
 11. Move Task between Lists (require session).
-* url: localhost:3030/projects/project/taskList/moveTaskToOtherList
+* url: localhost:3000/projects/project/taskList/moveTaskToOtherList
 * body: { “taskListId”: “*targetTaskListId*”, “moveToTaskListId”: “*targetMoveToTaskListId*”, “taskId”: “*targetTaskId*” }
 
 12. Search Tasks (requires session).
