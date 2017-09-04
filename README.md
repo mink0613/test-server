@@ -24,38 +24,65 @@
 
 3. Logout (sign-out) (requires session).
 * url: localhost:3000/logout
+* header
+** key: x-access-token
+** value: *yourToken*
 * body: { “userId”: “*yourId*”, “password”: “*yourPassword*” }
 
 4. Update a user’s email or name (requires session).
 * url: localhost:3000/updateUser
+* header
+** key: x-access-token
+** value: *yourToken*
 * body: { “userId”: “*yourId*”, “password”: “*yourPassword*”, “fname”: “*firstName*”, “lname”: “*lastName*”, “email”: “*youremail@email.com*” }
 
 5. Retrieve project list (requires session).
 * url: localhost:3000/projects/list
+* header
+** key: x-access-token
+** value: *yourToken*
 * body: {  }
 
 6. Create a project (requires session).
 * url: localhost:3000/projects/create
+* header
+** key: x-access-token
+** value: *yourToken*
 * body: { “title”: “*projectTitle*” }
 
 7. Retrieve a project (requires session).
 * url: localhost:3000/projects/project
+* header
+** key: x-access-token
+** value: *yourToken*
 * body: { “projectId”: “*targetProjectId*” }
 
 8. Create a task list (requires session).
 * url: localhost:3000/projects/project/createTaskList
+* header
+** key: x-access-token
+** value: *yourToken*
 * body: { “title”: “*taskTitle*”, “todo”: “*taskToDo*”, “taskListId”: “*targetTaskListId*” }
 
 9. Create a task (requires session).
 * url: localhost:3000/projects/project/taskList/createTask
+* header
+** key: x-access-token
+** value: *yourToken*
 * body: { “title”: “*taskListTitle*”, “projectId”: “*targetProjectId*” }
 
 10. Move Task within a List or between Lists (require session).
 * url: localhost:3000/projects/project/taskList/switchTaskWithinList
+* header
+** key: x-access-token
+** value: *yourToken*
 * body: { “taskListId”: “*targetTaskListId*”, “taskId”: “*targetTaskId*”, “switchOrder”: “*targetSwitchOrder*” }
 
 11. Move Task between Lists (require session).
 * url: localhost:3000/projects/project/taskList/moveTaskToOtherList
+* header
+** key: x-access-token
+** value: *yourToken*
 * body: { “taskListId”: “*targetTaskListId*”, “moveToTaskListId”: “*targetMoveToTaskListId*”, “taskId”: “*targetTaskId*” }
 
 12. Search Tasks (requires session).
